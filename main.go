@@ -21,7 +21,9 @@ func main() {
 func readFileHandler(w http.ResponseWriter, r *http.Request) {
 	filename := r.URL.Query().Get("file")
 
-	data, err := ioutil.ReadFile(filename)
+	fullPath := filepath.Join(allowedDir, filename)
+
+	data, err := ioutil.ReadFile(fullPath)
 	if err != nil {
 		http.Error(w, "File not found", 404)
 		return
